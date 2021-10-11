@@ -21,9 +21,9 @@ jobs:
     - name: Build with Gradle
       run: cd android && ./gradlew --stacktrace assembleRelease
     - name: Get apk name & set to the env
+      run: echo "OUTPUT_APK=$(ls android/app/build/outputs/apk/release/*.apk)" >> $GITHUB_ENV
+    - name: Send apk to Telegram group
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         CHAT_ID: ${{ secrets.CHAT_ID }}
-      run: echo "OUTPUT_APK=$(ls android/app/build/outputs/apk/release/*.apk)" >> $GITHUB_ENV
-    - name: Send apk to Telegram group
       run: curl -F "chat_id=${{env.CHAT_ID}}" -F document=@"${{env.OUTPUT_APK}}" https://api.telegram.org/bot${{env.BOT_TOKEN}}/sendDocument
