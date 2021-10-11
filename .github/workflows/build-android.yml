@@ -25,4 +25,4 @@ jobs:
     - name: Get apk name & set to the env
       run: echo "OUTPUT_APK=$(ls android/app/build/outputs/apk/release/*.apk)" >> $GITHUB_ENV
     - name: Send apk to Telegram grup
-      run: cd android/app/build/outputs/apk/release && curl -F document=@"$OUTPUT_APK" "https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendDocument?chat_id=${{secrets.CHAT_ID}}"
+      run: cd android/app/build/outputs/apk/release && curl -F document=@"${{OUTPUT_APK}}" "https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendDocument?chat_id=${{secrets.CHAT_ID}}"
