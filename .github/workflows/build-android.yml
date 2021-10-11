@@ -3,8 +3,6 @@ name: React Native Android CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -28,4 +26,4 @@ jobs:
         CHAT_ID: ${{ secrets.CHAT_ID }}
       run: echo "OUTPUT_APK=$(ls android/app/build/outputs/apk/release/*.apk)" >> $GITHUB_ENV
     - name: Send apk to Telegram group
-      run: curl -F document=@"${{env.OUTPUT_APK}}" https://api.telegram.org/bot${{env.BOT_TOKEN}}/sendDocument?chat_id=${{env.CHAT_ID}}
+      run: curl -F "chat_id=${{env.CHAT_ID}}" -F document=@"${{env.OUTPUT_APK}}" https://api.telegram.org/bot${{env.BOT_TOKEN}}/sendDocument
