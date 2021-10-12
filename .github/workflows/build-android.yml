@@ -26,4 +26,4 @@ jobs:
       env:
         BOT_TOKEN: test
         CHAT_ID: test
-      run: curl -F "chat_id=${{CHAT_ID}}" -F document=@"${{env.OUTPUT_APK}}" https://api.telegram.org/bot${{env.BOT_TOKEN}}/sendDocument
+      run: curl -F "chat_id=${{env.CHAT_ID}}" -F document=@"${{env.OUTPUT_APK}}" https://api.telegram.org/bot${{env.BOT_TOKEN}}/sendDocument
